@@ -37,6 +37,7 @@ Thumbs.db
 coverage
 .nyc_output
 
+
 # Temporários
 *.tmp
 .cache
