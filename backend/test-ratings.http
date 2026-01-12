@@ -1,0 +1,78 @@
+### ========== AUTENTICAÇÃO ==========
+
+### Login (Execute primeiro para pegar o token)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "teste@exemplo.com",
+  "password": "senha123"
+}
+
+### ========== TESTES DE RATINGS ==========
+
+### 1. Avaliar Matrix (ID: 603) com nota 5.0
+POST http://localhost:3000/api/movies/603/rating
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmQ0NmZiLTllYjUtNGI3Ny1hM2FjLTY3OWJmMDBmOWIzZiIsImlhdCI6MTc2ODEwNjMwNSwiZXhwIjoxNzY4MTkyNzA1fQ.Pt9oydQNonzl1krz_YM6fng8UR444qbcwnWLlJLTOdw
+
+{
+  "rating": 5.0
+}
+
+### 2. Avaliar Interestelar (ID: 157336) com nota 4.5
+POST http://localhost:3000/api/movies/157336/rating
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmQ0NmZiLTllYjUtNGI3Ny1hM2FjLTY3OWJmMDBmOWIzZiIsImlhdCI6MTc2ODEwNjMwNSwiZXhwIjoxNzY4MTkyNzA1fQ.Pt9oydQNonzl1krz_YM6fng8UR444qbcwnWLlJLTOdw
+
+{
+  "rating": 4.5
+}
+
+### 3. Ver sua nota do Matrix
+GET http://localhost:3000/api/movies/603/rating
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmQ0NmZiLTllYjUtNGI3Ny1hM2FjLTY3OWJmMDBmOWIzZiIsImlhdCI6MTc2ODEwNjMwNSwiZXhwIjoxNzY4MTkyNzA1fQ.Pt9oydQNonzl1krz_YM6fng8UR444qbcwnWLlJLTOdw
+
+### 4. Ver sua nota do Interestelar
+GET http://localhost:3000/api/movies/157336/rating
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmQ0NmZiLTllYjUtNGI3Ny1hM2FjLTY3OWJmMDBmOWIzZiIsImlhdCI6MTc2ODEwNjMwNSwiZXhwIjoxNzY4MTkyNzA1fQ.Pt9oydQNonzl1krz_YM6fng8UR444qbcwnWLlJLTOdw
+
+### 5. Listar TODAS suas avaliações
+GET http://localhost:3000/api/ratings/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmQ0NmZiLTllYjUtNGI3Ny1hM2FjLTY3OWJmMDBmOWIzZiIsImlhdCI6MTc2ODEwNjMwNSwiZXhwIjoxNzY4MTkyNzA1fQ.Pt9oydQNonzl1krz_YM6fng8UR444qbcwnWLlJLTOdw
+
+### 6. Atualizar nota do Matrix para 4.0
+POST http://localhost:3000/api/movies/603/rating
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmQ0NmZiLTllYjUtNGI3Ny1hM2FjLTY3OWJmMDBmOWIzZiIsImlhdCI6MTc2ODEwNjMwNSwiZXhwIjoxNzY4MTkyNzA1fQ.Pt9oydQNonzl1krz_YM6fng8UR444qbcwnWLlJLTOdw
+
+{
+  "rating": 4.0
+}
+
+### 7. Remover avaliação do Matrix
+DELETE http://localhost:3000/api/movies/603/rating
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmQ0NmZiLTllYjUtNGI3Ny1hM2FjLTY3OWJmMDBmOWIzZiIsImlhdCI6MTc2ODEwNjMwNSwiZXhwIjoxNzY4MTkyNzA1fQ.Pt9oydQNonzl1krz_YM6fng8UR444qbcwnWLlJLTOdw
+
+### ========== TESTES DE VALIDAÇÃO ==========
+
+### Erro: Rating inválido (maior que 5)
+POST http://localhost:3000/api/movies/603/rating
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmQ0NmZiLTllYjUtNGI3Ny1hM2FjLTY3OWJmMDBmOWIzZiIsImlhdCI6MTc2ODEwNjMwNSwiZXhwIjoxNzY4MTkyNzA1fQ.Pt9oydQNonzl1krz_YM6fng8UR444qbcwnWLlJLTOdw
+
+{
+  "rating": 10.0
+}
+
+### Erro: Rating inválido (negativo)
+POST http://localhost:3000/api/movies/603/rating
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmQ0NmZiLTllYjUtNGI3Ny1hM2FjLTY3OWJmMDBmOWIzZiIsImlhdCI6MTc2ODEwNjMwNSwiZXhwIjoxNzY4MTkyNzA1fQ.Pt9oydQNonzl1krz_YM6fng8UR444qbcwnWLlJLTOdw
+
+{
+  "rating": -1.0
+}
+
+### Erro: Sem autenticação
+GET http://localhost:3000/api/ratings/me

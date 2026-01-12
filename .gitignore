@@ -1,0 +1,18 @@
+# Dependências
+node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/*
+!.vscode/extensions.json
+
+# Testes
+test.http
