@@ -1,3 +1,4 @@
+import { useAuth } from'@/contexts/AuthContext';
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import AuthContainer from '@/components/Auth/AuthContainer';
@@ -9,12 +10,25 @@ const Register: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const[error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const { register } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Cadastro efetuado com:', { name, email, password });
-    navigate('/dashboard');
+    setError('');
+    setLoading(true);
+    
+    const result = await register(name, email, password);
+    setLoading(false);
+    
+    if(result.success){
+      navigate('/home');
+    }else{
+      setError(result.error || 'Erro ao fazer cadastro');
+    }
     };
 
     return(
@@ -44,7 +58,14 @@ const Register: React.FC = () => {
             onChange={setPassword}
             required
             />
-            <AuthButton type='submit'>Enviar</AuthButton>
+            {error && (
+                <div className='text-red-500 text-sm text-center bg-red-500/10 p-2 rounded'>
+                    {error}
+                </div>
+            )}
+            <AuthButton type='submit' disabled={loading}>
+                {loading ? 'Carregando...': 'Enviar'}
+            </AuthButton>
           </AuthForm>
             
         </AuthContainer>

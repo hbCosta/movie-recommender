@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import AuthContainer from '@/components/Auth/AuthContainer';
 import AuthInput from '@/components/Auth/AuthInput';
 import AuthButton from '@/components/Auth/AuthButton';
@@ -8,13 +9,27 @@ import AuthForm from '@/components/Auth/AuthForm';
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Login efetuado com:', { email, password });
-    navigate('/dashboard');
+    setError('');
+    setLoading(true);
+
+    const result = await login(email, password);
+    
+    setLoading(false);
+    if(result.success){
+        navigate('/Home');
+    }else{
+        setError(result.error || 'Erro ao fazer login');
+    }
     };
+
+    
 
     return(
         <AuthContainer>
@@ -35,7 +50,14 @@ const Login: React.FC = () => {
                 onChange={setPassword}
                 required
                 />
-                <AuthButton type='submit'>Enviar</AuthButton>
+                {error && (
+                    <div className='text-red-500 text-sm text-center bg-red-500/10 p-2 rounded'>
+                        {error}
+                    </div>
+                )}
+                <AuthButton type='submit' disabled={loading}>
+                    {loading ? 'Carregando...': 'Enviar'}
+                </AuthButton>
 
                 <div className="text-center mt-2 text-sm text-gray-400">
                     <span>Não tem uma conta?</span>
