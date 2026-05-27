@@ -36,7 +36,7 @@ export async function login(email: string, password: string): Promise<LoginResul
             user: user
         };
     } catch (error: any){
-        const errorMessage = error.response?.data?.message || 'Erro ao realizar login. Tente novamente.';
+        const errorMessage = error.response?.data?.error || 'Erro ao realizar login. Tente novamente.';
         return {
             success: false,
             error: errorMessage
@@ -60,7 +60,7 @@ export async function register(name: string, email: string, password: string): P
         };
 
     }catch(error: any){
-        const errorMessage = error.response?.data?.message || 'Erro ao realizar registro. Tente novamente.';
+        const errorMessage = error.response?.data?.error || 'Erro ao realizar registro. Tente novamente.';
         return {
             success: false,
             error: errorMessage

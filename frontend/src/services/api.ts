@@ -40,6 +40,7 @@ export const movieAPI = {
 export const ratingAPI ={
     create: (data: any) => api.post('/ratings', data),
     getByUser: (userId: string) => api.get(`/ratings/user/${userId}`),
+    delete: (movieId: number) => api.delete(`/ratings/${movieId}`),
 }
 
 
