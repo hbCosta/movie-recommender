@@ -1,6 +1,6 @@
 import { useAuth } from'@/contexts/AuthContext';
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AuthContainer from '@/components/Auth/AuthContainer';
 import AuthInput from '@/components/Auth/AuthInput';
 import AuthButton from '@/components/Auth/AuthButton';

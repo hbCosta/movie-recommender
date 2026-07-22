@@ -61,6 +61,22 @@ export class TmdbService {
         }
     }
 
+    async getMovieRecommendations(movieId: number, page: number = 1) {
+        try{
+            const response = await axios.get(`${this.baseUrl}/movie/${movieId}/recommendations`,{
+                params: {
+                    api_key: this.apiKey,
+                    page: page,
+                    language: 'pt-BR'
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Erro ao buscar recomendações do filme no TMDb', error);
+            throw error;
+        }
+    }
+
     async getGenres(){
         try {
             const response = await axios.get(`${this.baseUrl}/genre/movie/list`,{

@@ -9,5 +9,7 @@ router.use(authMiddleware);
 
 router.get('/me', ratingController.getMyRating.bind(ratingController));
 router.get('/me/all', ratingController.getMyRatings.bind(ratingController));
+router.post('/:id', ratingController.rateMovie.bind(ratingController));
+router.delete('/:id', ratingController.deleteRating.bind(ratingController));
 
 export default router;

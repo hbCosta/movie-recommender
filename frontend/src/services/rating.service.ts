@@ -1,10 +1,5 @@
 import { ratingAPI } from "./api";
 
-interface ratingResponse{
-    movieId: number,
-    rating: number
-}
-
 interface RatingResult{
     success: boolean,
     data?: any,
@@ -36,12 +31,9 @@ export async function rateMovie(
     }
 }
 
-export async function getUserRatings(
-    userId: string,
-
-): Promise<RatingResult> {
+export async function getUserRatings(): Promise<RatingResult> {
     try {
-        const response = await ratingAPI.getByUser(userId);
+        const response = await ratingAPI.getByUser();
         return{
             success: true,
             data: response.data

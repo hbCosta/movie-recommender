@@ -26,9 +26,16 @@ export class AuthController {
                     password: passwordHash,
                 },
             });
-            
+
+            const token = jwt.sign(
+                {id: newUser.id},
+                process.env.JWT_SECRET || "segredo_padrao_dev",
+                { expiresIn: "1d"}
+            );
+
             return res.status(201).json({
                 message: "Usuario criado com sucesso!",
+                token,
                 user: {
                     id: newUser.id,
                     name: newUser.name,

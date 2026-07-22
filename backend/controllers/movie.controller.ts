@@ -1,6 +1,7 @@
 import express from "express";
 import { prisma } from "../lib/prisma";
 import {  TmdbService } from "../services/tmdb.service";
+import { RecommendationService } from "../services/recommendation.service";
 
 interface AuthRequest extends express.Request {
     user?: {
@@ -62,8 +63,13 @@ export class MovieController {
             if(!userId){
                 return res.status(401).json({error:"Usuário não autenticado"});
             }
-            
+
+            const recommendationService = new RecommendationService();
+            const results = await recommendationService.getRecommendationsForUser(userId);
+
+            return res.json({ results });
         } catch (error){
+            console.error("Erro ao buscar recomendações", error);
             return res.status(500).json({error: "Erro ao buscar recomendações"})
         }
     }
